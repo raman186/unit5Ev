@@ -17,3 +17,8 @@
 .refresh_it button:hover{
     background-color: rgb(181, 203, 225);
 }
+#namebox{
+    width: 20%;
+    margin: auto;
+    font-size: 150%;
+}
