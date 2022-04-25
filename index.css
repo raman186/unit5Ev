@@ -1,0 +1,19 @@
+.refresh_it{
+    display: block;
+    width: 30%;
+    margin: auto;
+    margin-top: 10vw;
+    padding: 2%;
+    text-align: center;
+
+}
+.refresh_it button{
+    padding: .5vw 1vw;
+    background-color: rgb(156, 178, 198);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+.refresh_it button:hover{
+    background-color: rgb(181, 203, 225);
+}
