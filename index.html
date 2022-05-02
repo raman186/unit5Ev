@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .web{
+            margin-top: 5%;
+            text-align: center;
+        }
+        #card{
+            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+            width: 40%;
+            margin: auto;
+            padding: 2% 2%;
+            margin-top: 5%;
+            font-size: 150%;
+            color: rgb(25, 130, 221);
+
+            border-radius: 8px;
+        }
+        #name{
+            color: red;
+        }
+        input{
+            padding: .8%;
+            border: 1px solid black;
+            border-radius: 8px;
+        }
+        button{
+            background-color: black;
+            color: aliceblue;
+            padding: .8%;
+            border-radius: 8px;
+            border: none;
+        }
+        img{
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div class="web">
+        <input type="text" id="cityName" placeholder="Enter City Name">
+        <button id="search" onclick="getWeather()">Search</button>
+        <box id="container">
+        </box>
+    </div>
+</body>
+<script>
+    let container=document.getElementById("container")
+    var apiKey="5b4eaa8bd2c0067f152161810dc362df";
+    async function getWeather(){
+        let cityName=document.getElementById('cityName').value;
+        var res=  await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`);
+
+        let data=await res.json();
+        console.log(data)
+
+        displayData(data);
+
+        function displayData(data){
+        let weather_card=document.createElement('div')
+            weather_card.setAttribute('id','card')
+
+        
+        let name=document.createElement('p')
+        name.setAttribute('id','name')
+
+        name.textContent=data.name;
+
+        let temperature=document.createElement('p')
+        temperature.textContent="Temperature: "+data.main.temp;
+
+        let pres=document.createElement('p')
+        pres.textContent="Pressure: "+data.main.pressure;
+
+        let humi=document.createElement('p')
+        humi.textContent="Humidity: "+data.main.humidity;
+
+        let windS=document.createElement('p')
+        windS.textContent="Wind-Speed: "+data.wind.speed;
+
+        let sunr=document.createElement('p')
+        sunr.textContent="Sunrise: "+data.sys.sunrise;
+
+        let suns=document.createElement('p')
+        suns.textContent="Sunset: "+data.sys.sunset;
+
+        let desc=document.createElement('p')
+         desc.textContent="Weather Description: ";
+         let logo=document.createElement('p')
+         let sun_icon=document.createElement('img')
+        sun_icon.src='data:image/jpeg;base64,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'
+        let cloud_icon=document.createElement('img')
+        cloud_icon.src='https://i.pinimg.com/originals/c3/55/87/c35587a5a68196015d9365ca2c0fd25e.jpg';
+      
+        if(data.weather[0].description==='clear sky'){
+            logo.append(sun_icon)
+
+        }else
+        logo.append(cloud_icon)
+        
+        weather_card.append(name,temperature,pres,humi,windS,sunr,suns,desc,logo)
+        container.append(weather_card)
+    }
+    }
+
+    /*
+    
+    {
+    "coord": {
+        "lon": -2.15,
+        "lat": 57
+    },
+    "weather": [
+        {
+        "id": 804,
+        "main": "Clouds",
+        "description": "overcast clouds",
+        "icon": "04d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 8.48,\
+        "feels_like": 4.9,
+        "temp_min": 8.18,
+        "temp_max": 9.26,
+        "pressure": 1016,
+        "humidity": 79,
+        "sea_level": 1016,
+        "grnd_level": 1016
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 7.3,
+        "deg": 189,
+        "gust": 13.48
+    },
+    "clouds": {
+        "all": 100
+    },
+    "dt": 1647347424,
+    "sys": {
+        "type": 2,
+        "id": 2031790,
+        "country": "GB",
+        "sunrise": 1647325488,
+        "sunset": 1647367827
+    },
+    "timezone": 0,
+    "id": 2641549,
+    "name": "Newtonhill",
+    "cod": 200
+    }
+*/
+  
+</script>
+</html>
